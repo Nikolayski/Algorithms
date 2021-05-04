@@ -76,7 +76,7 @@ namespace ConsoleApp1
 
         private static int Partition(int[] arr, int start, int end)
         {
-            int pivot = arr[end];    //1, 5, 4, 11, 20, 8, 2, 98, 90, 16
+            int pivot = arr[end];   
             int i = start;
             int temp;
             for (int j = start; j < end; j++)
@@ -198,7 +198,7 @@ namespace ConsoleApp1
                 Merge2(input, left, middle, right);
             }
         }
-        private static void CountSort(int[] arr, int maxNumber)    // only counting repeating numbers, but not sort array... Can be modified.
+        private static void CountSort(int[] arr, int maxNumber)    // only counting repeating numbers, but the arr is not sorted at the end ...  Could be modified.
         {
             var result = new int[maxNumber + 1];
 
@@ -223,7 +223,7 @@ namespace ConsoleApp1
         private static int BinarySearchLinear(int[] arr, int searchKey)
         {
             var min = 0;
-            var max = arr.Length - 1;  //1 2 3 4 5
+            var max = arr.Length - 1; 
 
             while (min <= max)
             {
