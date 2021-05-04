@@ -13,27 +13,7 @@ namespace ConsoleApp1
             //Test here
 
         }
-        private static void CountSort(int[] arr, int maxNumber)    // only counting repeating numbers, but not sort array... Can be modified.
-        {
-            var result = new int[maxNumber + 1];
 
-            for (int i = 0; i < arr.Length; i++)
-            {
-                if (result[arr[i]] != 0)
-                {
-                    result[arr[i]]++;
-                }
-                else
-                {
-                    result[arr[i]] = 1;
-                }
-            }
-
-            for (int i = 0; i < result.Length; i++)
-            {
-                Console.WriteLine($"{i} => {result[i]} times.");
-            }
-        }
 
         private static void BubbleSort(int[] arr)
         {
@@ -83,7 +63,6 @@ namespace ConsoleApp1
             }
         }
 
-
         private static void QuickSort(int[] arr, int start, int end)
         {
 
@@ -117,19 +96,14 @@ namespace ConsoleApp1
             return i;
         }
 
+        private static int[] MergeSort(int[] arr)
+        {
+            if (arr.Length <= 1)
+            {
+                return arr;
+            }
 
-
-
-        private static int[] MergeSort(int[] arr)                  //1, 5, 4, 11, 20, 8, 2, 98, 90, 16
-        {                                                     //{1, 5, 4, 11, 20}        :   8, 2, 98, 90, 16
-            if (arr.Length <= 1)                              //{1,5}  :  {4,11,20}         {8,2} : {98, 90, 16}
-            {                                                 //{1} : {5}  {4} : {11,20}   {8} : {2}  {98} : {90, 16}
-                return arr;                                   // {1,5}         {11} : {20}    {2,8}           {16, 90}
-            }                                                  //  {1,5}  :  {4, 11 , 20}      {2,8} : {16, 90, 98}       
-                                                               //     {1,4,5,11,20}         :  {2,8,16,90,98}
             int middle = arr.Length / 2;
-
-
             int[] left = new int[arr.Length / 2];
             int[] right = arr.Length % 2 == 0 ? new int[arr.Length / 2] : new int[arr.Length / 2 + 1];
 
@@ -140,7 +114,6 @@ namespace ConsoleApp1
             right = MergeSort(right);
             var result = Merge(left.ToList(), right.ToList());
             return result.ToArray();
-
         }
 
         private static List<int> Merge(List<int> left, List<int> right)
@@ -171,10 +144,80 @@ namespace ConsoleApp1
                 {
                     result.Add(right.First());
                     right.RemoveAt(0);
-
                 }
             }
+
             return result;
+        }
+
+        // MERGE SORT 2
+        private static void Merge2(int[] input, int left, int middle, int right)
+        {
+            int[] leftArray = new int[middle - left + 1];
+            int[] rightArray = new int[right - middle];
+
+            Array.Copy(input, left, leftArray, 0, middle - left + 1);
+            Array.Copy(input, middle + 1, rightArray, 0, right - middle);
+
+            int i = 0;
+            int j = 0;
+            for (int k = left; k < right + 1; k++)
+            {
+                if (i == leftArray.Length)
+                {
+                    input[k] = rightArray[j];
+                    j++;
+                }
+                else if (j == rightArray.Length)
+                {
+                    input[k] = leftArray[i];
+                    i++;
+                }
+                else if (leftArray[i] <= rightArray[j])
+                {
+                    input[k] = leftArray[i];
+                    i++;
+                }
+                else
+                {
+                    input[k] = rightArray[j];
+                    j++;
+                }
+            }
+        }
+
+        private static void MergeSort2(int[] input, int left, int right)
+        {
+            if (left < right)
+            {
+                int middle = (left + right) / 2;
+
+                MergeSort2(input, left, middle);
+                MergeSort2(input, middle + 1, right);
+
+                Merge2(input, left, middle, right);
+            }
+        }
+        private static void CountSort(int[] arr, int maxNumber)    // only counting repeating numbers, but not sort array... Can be modified.
+        {
+            var result = new int[maxNumber + 1];
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (result[arr[i]] != 0)
+                {
+                    result[arr[i]]++;
+                }
+                else
+                {
+                    result[arr[i]] = 1;
+                }
+            }
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                Console.WriteLine($"{i} => {result[i]} times.");
+            }
         }
 
         private static int BinarySearchLinear(int[] arr, int searchKey)
@@ -199,7 +242,6 @@ namespace ConsoleApp1
                 }
             }
             return -1;
-
         }
 
         private static int BinarySearchRecursevely(int[] arr, int min, int max, int key)
@@ -224,58 +266,8 @@ namespace ConsoleApp1
             }
         }
 
-
-        //MERGE SORT 2
-        //private static void Merge(int[] input, int left, int middle, int right)
-        //{
-        //    int[] leftArray = new int[middle - left + 1];
-        //    int[] rightArray = new int[right - middle];
-
-        //    Array.Copy(input, left, leftArray, 0, middle - left + 1);
-        //    Array.Copy(input, middle + 1, rightArray, 0, right - middle);
-
-        //    int i = 0;
-        //    int j = 0;
-        //    for (int k = left; k < right + 1; k++)
-        //    {
-        //        if (i == leftArray.Length)
-        //        {
-        //            input[k] = rightArray[j];
-        //            j++;
-        //        }
-        //        else if (j == rightArray.Length)
-        //        {
-        //            input[k] = leftArray[i];
-        //            i++;
-        //        }
-        //        else if (leftArray[i] <= rightArray[j])
-        //        {
-        //            input[k] = leftArray[i];
-        //            i++;
-        //        }
-        //        else
-        //        {
-        //            input[k] = rightArray[j];
-        //            j++;
-        //        }
-        //    }
-        //}
-
-        //private static void MergeSort(int[] input, int left, int right)
-        //{
-        //    if (left < right)
-        //    {
-        //        int middle = (left + right) / 2;
-
-        //        MergeSort(input, left, middle);
-        //        MergeSort(input, middle + 1, right);
-
-        //        Merge(input, left, middle, right);
-        //    }
-        //}
-
-
     }
+
 
 }
 
