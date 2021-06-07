@@ -101,10 +101,10 @@ namespace ConsoleApp1
             {
                 int middle = (left + right) / 2;
 
-                MergeSort2(input, left, middle);
-                MergeSort2(input, middle + 1, right);
+                MergeSort(input, left, middle);
+                MergeSort(input, middle + 1, right);
 
-                Merge2(input, left, middle, right);
+                Merge(input, left, middle, right);
             }
         }
 
